@@ -16,7 +16,7 @@ var HTMLLoader = {
 		this.handler.onHTMLLoad = function(t, x) {
 			root.onHTMLLoad(t, x);
 		}
-		Utensil.URLLoader.load("resource/template/index.html", this.handler.onHTMLLoad);
+		Utensil.URLLoader.load(url, this.handler.onHTMLLoad);
 	},
 	onHTMLLoad : function(t, x) {
 		this.setBody(t);
