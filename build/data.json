@@ -1,0 +1,14 @@
+{
+	"example.html": [
+		{
+			"id": "mainTitle",
+			"type": "text",
+			"value": "hello world"
+		},
+		{
+			"id": "mainImage",
+			"type": "img",
+			"value": "http://images.fanpop.com/images/image_uploads/Dragon-Ball-Z-dragon-ball-z-538442_1024_768.jpg"
+		}
+	]
+}

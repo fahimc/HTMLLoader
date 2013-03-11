@@ -1,6 +1,7 @@
 (function(window) {
-	window.templaterArray=[];
-	window.templaterIndex=0;
+	window.templaterArray = [];
+	window.templaterIndex = 0;
+	window.pageName = "";
 	function Main() {
 		if (window.addEventListener) {
 			window.addEventListener("load", onLoad);
@@ -11,35 +12,61 @@
 	}
 
 	function onLoad() {
-		Utensil.URLLoader.load("site.json?rand="+Math.random(),siteLoaded);
-		
+		Utensil.URLLoader.load("site.json?rand=" + Math.random(), siteLoaded);
+
 	}
-	function siteLoaded(t,x)
-	{
-		var pageName = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+
+	function siteLoaded(t, x) {
+		window.pageName = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
 		var data = (eval('(' + t + ')'));
-		for(var name in data)
-		{
-			if(name==pageName)
-			{
+		for (var name in data) {
+			if (name == window.pageName) {
 				window.templaterArray = data[name];
 				nextTemplate();
 			}
 		}
 	}
-	function nextTemplate()
-	{
-		if(window.templaterArray[window.templaterIndex])
-		{
-			HTMLLoader.load(window.templaterArray[window.templaterIndex],onTemplateLoaded);
-			
+
+	function nextTemplate() {
+		if (window.templaterArray[window.templaterIndex]) {
+			HTMLLoader.load(window.templaterArray[window.templaterIndex], onTemplateLoaded);
+		} else {
+			Utensil.URLLoader.load("data.json?rand=" + Math.random(), dataLoaded);
 		}
 	}
-	function onTemplateLoaded(content)
-	{
-		document.body.innerHTML+=content;
+
+	function onTemplateLoaded(content) {
+		document.body.innerHTML += content;
 		window.templaterIndex++;
 		nextTemplate();
 	}
+
+	function dataLoaded(t, x) {
+		var data = (eval('(' + t + ')'));
+		for (var name in data) {
+			if (name == window.pageName) {
+				for (var a = 0; a < data[name].length; a++) {
+					switch(data[name][a].type) {
+						case "text":
+							setText(data[name][a]);
+							break;
+						case "img":
+							setImg(data[name][a]);
+							break;
+					}
+				}
+			}
+		}
+
+	}
+
+	function setText(obj) {
+		document.getElementById(obj.id).innerHTML = obj.value;
+	}
+
+	function setImg(obj) {
+		document.getElementById(obj.id).src = obj.value;
+	}
+
 	Main();
 })(window);
