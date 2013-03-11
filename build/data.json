@@ -3,9 +3,8 @@
 		{
 			"id": "mainTitle",
 			"type": "text",
-			"value": "hello world"
-		},
-		{
+			"value": "hello world again test"
+		}, {
 			"id": "mainImage",
 			"type": "img",
 			"value": "http://images.fanpop.com/images/image_uploads/Dragon-Ball-Z-dragon-ball-z-538442_1024_768.jpg"

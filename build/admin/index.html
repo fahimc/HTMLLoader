@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Admin</title>
+		<meta name="author" content="Fahim" />
+		<!-- Date: 2013-03-11 -->
+		<script type="text/javascript" src="src/main.js"></script>
+		<script type="text/javascript" src="src/toolkitMax-v1003-compressed.js"></script>
+		<link type="text/css" rel="stylesheet" href="resource/style/style.css" />
+	</head>
+	<body>
+		<div id="spacer"></div>
+		<div id="login">
+			<h1>Admin</h1>
+			<ul><li class="field">Username</li><li ><input type="text" id="user" /></li><li class="clearBoth"></li></ul>
+			<ul><li class="field">Password</li><li ><input type="password" id="pass" /></li><li class="clearBoth"></li></ul>
+			<button id="submit">login</button>
+			<p id="loginError">&nbsp;</p>
+		</div>
+		<div id="wrapper">
+			<div class="header"><h1>Content Management</h1></div>
+			<ul class="wrapperUL">
+				<li id="nav">
+	
+				</li>
+				<li class="contentHolder">
+					<h1 id="contentTitle"></h1>
+					<div class="contentBox">
+						<p id="contentElement"></p>
+						<p id="contentElementType"></p>
+						<textarea id="contentValue"></textarea>
+						<button id="updateButton">update</button>
+					</div>
+				</li>
+				<li class="clearBoth"></li>
+			</ul>
+		</div>
+		<div id="backdrop"></div>
+		<div id="progress">Saving Data</div>
+	</body>
+</html>
+
