@@ -68,4 +68,12 @@ You can use this to update the content on you site. Navigate to 'your-site.com/a
 - password: admin  
  
 ### Changing the password
-Navigate to 'your-site.com/admin/password.html'.
+Navigate to 'your-site.com/admin/password.html'.  
+
+##Screenshots  
+
+**Admin**  
+![Admin](https://raw.github.com/fahimc/HTMLLoader/master/screenshots/login.jpg)  
+
+**CMS**  
+![CMS](https://raw.github.com/fahimc/HTMLLoader/master/screenshots/cms.jpg)
