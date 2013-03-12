@@ -1,0 +1,12 @@
+{
+	"example.html": [
+	"resource/template/header.html",
+	"resource/template/nav.html",
+	"resource/template/index.html"
+	],
+	"about.html": [
+	"resource/template/header.html",
+	"resource/template/nav.html",
+	"resource/template/about.html"
+	]
+}

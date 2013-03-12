@@ -65,8 +65,7 @@ var HTMLLoader = {
 
 			var found = false;
 			for (var c = 0; c < tags.length; c++) {
-
-				if (tags[c].getAttribute(att).indexOf(arr[b]) >= 0) {
+				if (tags[c].getAttribute(att) && tags[c].getAttribute(att).indexOf(arr[b]) >= 0) {
 					found = true;
 				}
 			}
