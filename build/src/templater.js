@@ -53,6 +53,9 @@
 						case "img":
 							setImg(data[name][a]);
 							break;
+						case "image":
+							setAdminImg(data[name][a]);
+							break;
 					}
 				}
 			}
@@ -66,6 +69,9 @@
 
 	function setImg(obj) {
 		document.getElementById(obj.id).src = obj.value;
+	}
+	function setAdminImg(obj) {
+		document.getElementById(obj.id).src = "admin/resource/image/"+obj.value;
 	}
 
 	Main();
