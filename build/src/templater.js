@@ -46,6 +46,7 @@
 
 	function dataLoaded(t, x) {
 		var data = (eval('(' + t + ')'));
+		window.data = data;
 		for (var name in data) {
 			if (name == window.pageName || (window.pageName == "index" && name.indexOf("index") >= 0)) {
 				for (var a = 0; a < data[name].length; a++) {
