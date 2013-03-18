@@ -247,3 +247,8 @@ display: block;
 	text-align: center;
 	font-weight: bold;
 }
+#formIframe
+{
+	display: none;
+}
+

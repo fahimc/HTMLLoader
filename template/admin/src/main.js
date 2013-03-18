@@ -3,8 +3,8 @@
 	var pass = "";
 	var dataLocation = "../data.json";
 	var content;
-	var currentPage="";
-	var currentIndex=0;
+	var currentPage = "";
+	var currentIndex = 0;
 	function Main() {
 		if (window.addEventListener) {
 			window.addEventListener("load", onLoad);
@@ -16,7 +16,7 @@
 
 	function onLoad() {
 		Utensil.URLLoader.load("admin.json?rand=" + Math.random(), adminLoaded);
-
+		
 	}
 
 	function adminLoaded(t, x) {
@@ -24,6 +24,7 @@
 		user = data.username;
 		pass = data.password;
 		showLogin();
+		Utensil.addListener(document.getElementById('formIframe'), "load", dataUpdated);
 	}
 
 	function showLogin() {
@@ -63,6 +64,7 @@
 	}
 
 	function logIn() {
+		
 		hideLogin();
 		Utensil.URLLoader.load(dataLocation + "?rand=" + Math.random(), dataLoaded);
 	}
@@ -73,16 +75,17 @@
 		showWrapper();
 		var first;
 		for (var name in content) {
-			if(!first)first = name;
+			if (!first)
+				first = name;
 			createPages(content[name], name);
 		}
-		updateContentSection(first,0);
+		updateContentSection(first, 0);
 	}
 
 	function showWrapper() {
 		document.getElementById("wrapper").style.display = "block";
 		var update = document.getElementById('updateButton');
-		Utensil.addListener(update,"click",onUpdateClicked);
+		Utensil.addListener(update, "click", onUpdateClicked);
 	}
 
 	function createPages(item, name) {
@@ -91,7 +94,7 @@
 		var p = document.createElement('p');
 		p.className = "title";
 		p.id = name.replace(".", "-");
-		p.innerHTML =name;
+		p.innerHTML = name;
 		holder.appendChild(p);
 
 		var ul = document.createElement('ul');
@@ -103,56 +106,83 @@
 		for (var a = 0; a < item.length; a++) {
 			li = document.createElement('li');
 			li.className = "elementButton";
-			li.id = name.replace(".", "-")+"_"+a;
-			li.innerHTML = "-"+item[a].id;
+			li.id = name.replace(".", "-") + "_" + a;
+			li.innerHTML = "-" + item[a].id;
 			ul.appendChild(li);
-			Utensil.addListener(li,"click",onElementClicked);
+			Utensil.addListener(li, "click", onElementClicked);
 		}
 
 		document.getElementById('nav').appendChild(holder);
 	}
-	function onElementClicked(event)
-	{
-		var target = event.srcElement?event.srcElement:event.target;
+
+	function onElementClicked(event) {
+		var target = event.srcElement ? event.srcElement : event.target;
 		var arr = target.id.split("_");
 		var page = arr[0];
 		var index = arr[1];
-		page=page.replace("-",".");
-		
-		updateContentSection(page,index);
+		page = page.replace("-", ".");
+
+		updateContentSection(page, index);
 	}
-	function updateContentSection(page,index)
-	{
-		var pageContent =content[page];
-		currentPage= page;
-		currentIndex=index;
+
+	function updateContentSection(page, index) {
+		var pageContent = content[page];
+		currentPage = page;
+		currentIndex = index;
 		document.getElementById('contentTitle').innerHTML = page;
-		document.getElementById('contentElement').innerHTML = "<b>Content ID:</b> "+pageContent[index].id;
-		document.getElementById('contentElementType').innerHTML = "<b>Type:</b> "+pageContent[index].type;
-		document.getElementById('contentValue').value = pageContent[index].value.replace(/<br>/gm,"\n");;
-	}
-	function onUpdateClicked(event)
-	{
-		document.getElementById('backdrop').style.display="block";
-		document.getElementById('progress').style.display="block";
-		content[currentPage][currentIndex].value = document.getElementById('contentValue').value.replace(/(\r\n|\n|\r)/gm,"<br>");
-		Utensil.URLLoader.load("lib/save.php", dataUpdated,"POST","data="+JSON.stringify(content));
-	}
-	function dataUpdated(t,x)
-	{
-		
-		switch(t)
-		{
-			case "done":
-			break;
-			case "error":
-			break;
+		document.getElementById('contentElement').innerHTML = "<b>Content ID:</b> " + pageContent[index].id;
+		document.getElementById('contentElementType').innerHTML = "<b>Type:</b> " + pageContent[index].type;
+		document.getElementById('contentValue').value = pageContent[index].value.replace(/<br>/gm, "\n");
+
+		if (pageContent[index].type == "image") {
+			document.getElementById('contentValue').disabled = true;
+			document.getElementById('file').style.display = "block";
+			document.getElementById('file').setAttribute("name", pageContent[index].id);
+		} else {
+			document.getElementById('contentValue').disabled = false;
+			document.getElementById('file').style.display = "none";
 		}
-		setTimeout(function()
-		{document.getElementById('backdrop').style.display="none";
-		document.getElementById('progress').style.display="none";
-		},1000);
-		
 	}
+
+	function onUpdateClicked(event) {
+		document.getElementById('backdrop').style.display = "block";
+		document.getElementById('progress').style.display = "block";
+		content[currentPage][currentIndex].value = document.getElementById('contentValue').value.replace(/(\r\n|\n|\r)/gm, "<br>");
+
+		var form = createForm();
+		
+		form.submit();
+		}
+
+	function createForm() {
+		var f = document.getElementById("dataForm");
+
+		var i = document.getElementById("formData");
+		i.setAttribute('value', JSON.stringify(content));
+		return f;
+	}
+
+	window.setImageName=function(imageData) {
+		if (content[currentPage][currentIndex].type != "image") return;
+		document.getElementById('contentValue').value = imageData.name;
+		content[currentPage][currentIndex].value = imageData.name;
+
+	}
+
+	function dataUpdated(t) {
+
+		switch(t) {
+			case "done":
+				break;
+			case "error":
+				break;
+		}
+		setTimeout(function() {
+			document.getElementById('backdrop').style.display = "none";
+			document.getElementById('progress').style.display = "none";
+		}, 1000);
+
+	}
+
 	Main();
 })(window);
