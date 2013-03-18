@@ -42,7 +42,7 @@ Class SaveData {
 	private function saveImage($obj) {
 		if ($_FILES[$obj -> id]["error"] && $_FILES[$obj -> id]["error"] > 0) {
 			echo "Error: " . "<br>";
-		} else {
+		} else if($_FILES[$obj -> id]) {
 			if ($obj -> value && file_exists($obj -> value))
 				unlink($obj -> value);
 			move_uploaded_file($_FILES[$obj -> id]["tmp_name"], SaveData::IMAGE_FOLDER . $_FILES[$obj -> id]['name']);
