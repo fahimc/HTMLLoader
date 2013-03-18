@@ -64,19 +64,22 @@
 				}
 			}
 		}
-
+		Event.dispatch(window, "TEMPLATE_DATA_LOADED");
 	}
 
 	function setText(obj) {
-		document.getElementById(obj.id).innerHTML = obj.value;
+		if (document.getElementById(obj.id))
+			document.getElementById(obj.id).innerHTML = obj.value;
 	}
 
 	function setImg(obj) {
-		document.getElementById(obj.id).src = obj.value;
+		if (document.getElementById(obj.id))
+			document.getElementById(obj.id).src = obj.value;
 	}
 
 	function setAdminImg(obj) {
-		document.getElementById(obj.id).src = "admin/resource/image/" + obj.value;
+		if (document.getElementById(obj.id))
+			document.getElementById(obj.id).src = "admin/resource/image/" + obj.value;
 	}
 
 	Main();
