@@ -105,4 +105,4 @@ var HTMLLoader = {
     }
     return stack.join("/");
 }
-}
+};

@@ -105,7 +105,7 @@ var HTMLLoader = {
     }
     return stack.join("/");
 }
-}
+};
 (function(window) {
 	window.templaterArray = [];
 	window.templaterIndex = 0;
@@ -126,9 +126,12 @@ var HTMLLoader = {
 
 	function siteLoaded(t, x) {
 		window.pageName = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+		if (window.pageName == "") {
+			window.pageName = "index";
+		}
 		var data = (eval('(' + t + ')'));
 		for (var name in data) {
-			if (name == window.pageName) {
+			if (name == window.pageName || (window.pageName == "index" && name.indexOf("index") >= 0)) {
 				window.templaterArray = data[name];
 				nextTemplate();
 			}
@@ -152,7 +155,7 @@ var HTMLLoader = {
 	function dataLoaded(t, x) {
 		var data = (eval('(' + t + ')'));
 		for (var name in data) {
-			if (name == window.pageName) {
+			if (name == window.pageName || (window.pageName == "index" && name.indexOf("index") >= 0)) {
 				for (var a = 0; a < data[name].length; a++) {
 					switch(data[name][a].type) {
 						case "text":
@@ -178,8 +181,9 @@ var HTMLLoader = {
 	function setImg(obj) {
 		document.getElementById(obj.id).src = obj.value;
 	}
+
 	function setAdminImg(obj) {
-		document.getElementById(obj.id).src = "admin/resource/image/"+obj.value;
+		document.getElementById(obj.id).src = "admin/resource/image/" + obj.value;
 	}
 
 	Main();
