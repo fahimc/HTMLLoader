@@ -2,6 +2,7 @@
 	window.templaterArray = [];
 	window.templaterIndex = 0;
 	window.pageName = "";
+	window.templateLoadComplete = false;
 	function Main() {
 		if (window.addEventListener) {
 			window.addEventListener("load", onLoad);
@@ -64,6 +65,7 @@
 				}
 			}
 		}
+		window.templateLoadComplete =true;
 		Event.dispatch(window, "TEMPLATE_DATA_LOADED");
 	}
 
